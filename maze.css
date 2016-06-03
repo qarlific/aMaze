@@ -4,6 +4,7 @@ body {
 table {
     border: solid black;
     border-width: 1px;
+    border-spacing: 0px;
 }
 td {
     border: black solid;
