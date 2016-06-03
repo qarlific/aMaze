@@ -1,0 +1,112 @@
+<html>
+    <head><link rel="stylesheet" href="maze.css"/></head>
+    <body>
+        <table id="maze"></table>
+        <script>
+            m = {}
+            d = [[0,-1], [1,0], [0,1], [-1,0]]
+            w = 94
+            h = 127
+            branch = []
+            
+            maze = document.getElementById('maze')
+            maze.style.borderSpacing = '0px'
+            for( var y = 0; y < h; y++ ) {
+                tr = document.createElement('tr')
+                for( var x = 0; x < w; x++ ) {
+                    td = document.createElement('td')
+                    td.id = x+','+y
+                    tr.appendChild( td )
+                }
+                maze.appendChild( tr );
+            }
+            id('0,0').style.borderTopWidth = '0px'
+            id((w-1)+','+(h-1)).style.borderBottomWidth = '0px'
+            
+            traverse(0, 0, 0);
+            /*while( branch.length ) {
+                xy = branch.splice(0, 1)[0]
+                x = xy[0]
+                y = xy[1]
+                consumeDirections( x, y, 0 )
+            }*/
+            
+            function traverse( pX, pY, pSteps ) {
+                if( pX < 0 ) return 3
+                if( pX >= w ) return 1
+                if( pY < 0 ) return 0
+                if( pY >= h ) return 2
+                if( m[pX+','+pY] ) return -1
+                
+                if( pSteps > 5 ) {
+                    branch.push( [pX, pY] )
+                    pSteps = 0;
+                }   
+                  
+                xy = pX+','+pY  
+                m[xy] = 1
+                
+                clearBorder( pX, pY )
+                
+                consumeDirections( pX, pY, pSteps )
+                
+                if( branch.length ) {
+                    xy = branch.splice(0, 1)[0]
+                    x = xy[0]
+                    y = xy[1]
+                    consumeDirections( x, y, pSteps )
+                }
+            }
+            function consumeDirections( pX, pY, pSteps ) {
+                var directions = [0, 1, 2, 3]
+                while( directions.length ) {
+                    r = rnd(0, directions.length-1)
+                    rt = directions[ r ]
+                    x = pX
+                    y = pY
+                    ret = traverse( pX + d[rt][0], pY + d[rt][1], pSteps++ )
+                    
+                    if( ret == -1 )
+                        directions.splice(r, 1)
+                    else
+                        for( i in directions )
+                            if( directions[i] == ret ) {
+                                directions.splice( i, 1 )
+                                break;
+                            }
+                }
+            }
+            function clearBorder( pX, pY ) {   
+                x2 = pX-x
+                y2 = pY-y
+                if( x2 >= -1 && x2 <= 1 && y2 == 0 ) {
+                    a = pX+','+pY
+                    b = x+','+y
+                    if( x < pX ) {
+                        b = a
+                        a = x+','+y
+                    }
+                    id(a).style.borderRightWidth = '0px'
+                    id(b).style.borderLeftWidth = '0px'
+                    
+                }
+                else if( y2 >= -1 && y2 <= 1 && x2 == 0 ) {
+                    a = pX+','+pY
+                    b = x+','+y
+                    if( y < pY ) {
+                        b = a
+                        a = x+','+y
+                    }
+                    id(a).style.borderBottomWidth = '0px'
+                    id(b).style.borderTopWidth = '0px'
+                }
+            }
+            function id( pID ) {
+                return document.getElementById(pID)
+            }
+            function rnd(pFrom, pTo) {
+                return pFrom + ~~(Math.random()*(pTo-pFrom)+0.5)
+            }
+        </script>
+    </body>
+</html>

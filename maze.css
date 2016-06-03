@@ -1,0 +1,16 @@
+body {
+    padding: 8px;
+}
+table {
+    border: solid black;
+    border-width: 1px;
+}
+td {
+    border: black solid;
+    border-width: 1px 1px 1px 1px;
+    height: 8px;
+    width: 8px;
+    min-height: 1px;
+    min-width: 1px;
+    padding: 0px;
+}
