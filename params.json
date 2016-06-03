@@ -1,6 +1,6 @@
 {
   "name": "A Maze",
   "tagline": "It's a maze.",
-  "body": "[A Maze](https://raw.githubusercontent.com/qarlific/aMaze/master/index.html)",
+  "body": "Save as index.html  \r\n[index.html](https://raw.githubusercontent.com/qarlific/aMaze/master/index.html)\r\n\r\nSave as maze.css  \r\n[maze.css](https://raw.githubusercontent.com/qarlific/aMaze/master/maze.css)\r\n\r\nOr just download and extract the zip.",
   "note": "Don't delete this file! It's used internally to help with page regeneration."
 }
